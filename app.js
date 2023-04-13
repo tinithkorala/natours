@@ -75,11 +75,16 @@ const deleteTour = (req, res) => {
     });
 }
 
-app.get('/api/v1/tours', getAllTours);
-app.get('/api/v1/tours/:id', getTour);
-app.post('/api/v1/tours', createTour);
-app.patch('/api/v1/tours/:id', updateTour);
-app.delete('/api/v1/tours/:id', deleteTour);
+app
+    .route('/api/v1/tours')
+    .get(getTour)
+    .post(createTour);
+
+app
+    .route('/api/v1/tours/:id')
+    .get(getTour)
+    .path(updateTour)
+    .post(deleteTour);
 
 const port = 3000;
 app.listen(port, () => {
