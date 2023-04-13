@@ -4,11 +4,22 @@ const express = require('express');
 const app = express();
 app.use(express.json());
 
+app.use((req, res, next) => {
+    console.log('Hello I am from middleware 😊');
+    next();
+});
+
+app.use((req, res, next) => {
+    req.requestTime = new Date().toISOString();
+    next();
+});
+
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`));
 
 const getAllTours = (req, res) => {
     res.status(200).json({
         status: 'success',
+        requestTime: req.requestTime,
         result: tours.length,
         data: {
             tours
@@ -77,14 +88,14 @@ const deleteTour = (req, res) => {
 
 app
     .route('/api/v1/tours')
-    .get(getTour)
+    .get(getAllTours)
     .post(createTour);
 
 app
     .route('/api/v1/tours/:id')
     .get(getTour)
-    .path(updateTour)
-    .post(deleteTour);
+    .patch(updateTour)
+    .delete(deleteTour);
 
 const port = 3000;
 app.listen(port, () => {
