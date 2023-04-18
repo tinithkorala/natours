@@ -27,12 +27,25 @@ const tourSchema = new mongoose.Schema({
   },
   price: {
     type: Number,
-    require: [true, 'A tour must have a price']
+    required: [true, 'A tour must have a price']
   }
 });
 
 // Create a model from the schema
 const Tour = mongoose.model('Tour', tourSchema);
+
+const testTour = new Tour({
+  name: 'The park campser',
+  price: 500
+});
+
+testTour.save()
+.then(doc => {
+  console.log(doc);
+})
+.catch(err => {
+  console.log('Error ! : ', err);
+});
 
 // console.log(process.env);
 
