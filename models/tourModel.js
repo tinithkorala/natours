@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
 
 // Schema
 const tourSchema = new mongoose.Schema({
@@ -16,6 +17,8 @@ const tourSchema = new mongoose.Schema({
         required: [true, 'A tour must have a price']
     }
 });
+
+tourSchema.plugin(uniqueValidator);
 
 // Create a model from the schema
 const Tour = mongoose.model('Tour', tourSchema);
