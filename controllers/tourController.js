@@ -126,10 +126,10 @@ exports.getTourStatus = async (req, res) => {
             },
             {
                 $sort: { avgPrice: 1 }
-            },
-            {
-                $match: { _id: { $ne: 'EASY' } }
             }
+            // {
+            //     $match: { _id: { $ne: 'EASY' } }
+            // }
         ]);
         res.status(200).json({
             status: 'success',
