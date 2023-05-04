@@ -4,7 +4,10 @@ const dontenv = require('dotenv');
 process.on('uncaughtException', err => {
   console.log('UNCAUGHT EXCEPTION! 💥 Shutting down... ');
   console.log(err.name, err.message);
-  process.exit(1);
+  // process.exit(1);
+  server.close(() => {
+    process.exit(1);
+  });
 });
 
 dontenv.config({ path: './config.env' });
