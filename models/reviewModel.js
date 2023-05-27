@@ -72,9 +72,15 @@ reviewSchema.post('save', function() {
 });
 
 reviewSchema.pre(/^findOneAnd/, async function(next) {
-    const currentHook = this;
-    const id = currentHook.getQuery()._id;
-    this.r = await this.model.findOne({ _id: id });
+
+    // This.find is not working so I used this
+    // const currentHook = this;
+    // const id = currentHook.getQuery()._id;
+    // this.r = await this.model.findOne({ _id: id });
+
+    // This also working correctly
+    this.r = await this.model.findOne(this.getQuery());
+ 
 });
 
 reviewSchema.post(/^findOneAnd/, async function() {
