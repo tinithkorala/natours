@@ -29,7 +29,7 @@ html {
 
 body {
   line-height: 1.6;
-  font-weight: 300;
+  font-weight: 600;
   font-family: 'Lato', sans-serif;
   color: #777;
   padding: 3rem;
@@ -1116,7 +1116,7 @@ body {
     to(#28b487)
   );
   background-image: linear-gradient(to right bottom, #7dd56f, #28b487);
-  opacity: 0.7;
+  opacity: 0.1;
 }
 .card__picture-img {
   -o-object-fit: cover;
