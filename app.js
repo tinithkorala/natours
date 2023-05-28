@@ -29,7 +29,18 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Set security HTTP headers
-app.use(helmet());
+// app.use(helmet());
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "api.mapbox.com"],
+        workerSrc: ["'self'", "api.mapbox.com", "'unsafe-eval'", "blob:"],
+        connectSrc: ["'self'", "api.mapbox.com", "events.mapbox.com"], // Include Mapbox events endpoint as an allowed source
+        },
+    })
+);
+  
 
 if(process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
