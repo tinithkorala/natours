@@ -30,16 +30,29 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Set security HTTP headers
 // app.use(helmet());
+// app.use(
+//     helmet.contentSecurityPolicy({
+//         directives: {
+//         defaultSrc: ["'self'"],
+//         scriptSrc: ["'self'", "api.mapbox.com"],
+//         workerSrc: ["'self'", "api.mapbox.com", "'unsafe-eval'", "blob:"],
+//         connectSrc: ["'self'", "api.mapbox.com", "events.mapbox.com"], // Include Mapbox events endpoint as an allowed source
+//         },
+//     })
+// );
+
 app.use(
     helmet.contentSecurityPolicy({
-        directives: {
+      directives: {
         defaultSrc: ["'self'"],
-        scriptSrc: ["'self'", "api.mapbox.com"],
+        scriptSrc: ["'self'", "api.mapbox.com", "cdnjs.cloudflare.com"],
         workerSrc: ["'self'", "api.mapbox.com", "'unsafe-eval'", "blob:"],
-        connectSrc: ["'self'", "api.mapbox.com", "events.mapbox.com"], // Include Mapbox events endpoint as an allowed source
-        },
+        connectSrc: ["'self'", "api.mapbox.com", "events.mapbox.com", "https://api.mapbox.com", "http://127.0.0.1:3000"], // Include 'https://api.mapbox.com' as an allowed source
+      },
     })
-);
+  );
+  
+  
   
 
 if(process.env.NODE_ENV === 'development') {
