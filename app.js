@@ -7,6 +7,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 const AppError = require('./utils/appError');
 
@@ -19,6 +20,7 @@ const viewRouter = require('./routes/viewRoutes');
 
 const app = express();
 app.use(cors());
+app.use(cookieParser());
 
 // Setup view engine
 app.set('view engine', 'pug');
@@ -85,6 +87,7 @@ app.use(hpp({
 
 app.use((req, res, next) => {
     req.requestTime = new Date().toISOString();
+    console.log(req.cookies);
     next();
 }); 
 
